@@ -23,7 +23,7 @@ app.use((ctx) => {
 });
 
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = Deno.env.get('PORT') || 3000;
 app.listen({
     hostname,
     port
