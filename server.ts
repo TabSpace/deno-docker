@@ -22,11 +22,9 @@ app.use((ctx) => {
   ctx.response.body = 'Hello World!';
 });
 
-const hostname:string = '127.0.0.1';
 const port:number = Number(Deno.env.get('PORT') || 3000);
 
 app.listen({
-    hostname,
     port
 });
-console.log(`server listen at http://${hostname}:${port}/`);
+console.log(`server listen at http://localhost:${port}/`);
