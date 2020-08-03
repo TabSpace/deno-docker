@@ -16,4 +16,4 @@ Hello world
 
 OAK Demo
 
-`docker run tabspace/deno run --allow-net --allow-env https://raw.githubusercontent.com/TabSpace/deno-docker/master/example/server.ts`
+`docker run -p 3000:3000 tabspace/deno run --allow-net --allow-env https://raw.githubusercontent.com/TabSpace/deno-docker/master/example/server.ts`
