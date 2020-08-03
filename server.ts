@@ -22,8 +22,9 @@ app.use((ctx) => {
   ctx.response.body = 'Hello World!';
 });
 
-const hostname = '127.0.0.1';
-const port = Deno.env.get('PORT') || 3000;
+const hostname:string = '127.0.0.1';
+const port:number = Number(Deno.env.get('PORT') || 3000);
+
 app.listen({
     hostname,
     port
