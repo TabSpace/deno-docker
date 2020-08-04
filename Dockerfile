@@ -12,4 +12,8 @@ ENV PATH="$DENO_INSTALL/bin:$PATH"
 
 WORKDIR /app
 
+COPY . .
+
 ENTRYPOINT ["deno"]
+
+CMD ["run", "-A", "__launcher.ts"]
