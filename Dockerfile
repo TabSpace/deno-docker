@@ -15,4 +15,4 @@ ENTRYPOINT ["deno"]
 
 WORKDIR /usr/src/app
 COPY . .
-CMD ["run", "-A", "app.ts"]
+CMD ["run", "-A", "entry.ts"]
