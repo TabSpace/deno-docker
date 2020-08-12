@@ -4,16 +4,20 @@ A docker file which contain the latest deno release.
 
 ## Sample Usage
 
-## Use the interpreter
+### Build
 
-`docker run -it tabspace/deno`
+`docker image build -t deno .`
 
-## Run the Deno welcome script
+### Use the interpreter
+
+`docker run -it deno`
+
+### Run the Deno welcome script
 
 Hello world
 
-`docker run tabspace/deno run https://deno.land/std/examples/welcome.ts`
+`docker run deno run https://deno.land/std/examples/welcome.ts`
 
 OAK Demo
 
-- `docker run -p 3000:80 tabspace/deno`
+- `docker run -p 3000:80 deno`
