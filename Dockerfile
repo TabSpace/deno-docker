@@ -15,4 +15,6 @@ ENTRYPOINT ["deno"]
 
 WORKDIR /usr/src/app
 COPY . .
+RUN deno install entry.ts
+
 CMD ["run", "-A", "entry.ts"]
