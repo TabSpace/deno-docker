@@ -1,30 +1,21 @@
-import { Application } from 'https://deno.land/x/oak/mod.ts';
+import { Application } from "https://deno.land/x/oak@v6.0.1/mod.ts";
+import { setRoutes } from "./route/mod.ts";
+import {
+  logger as midLogger,
+  timing,
+  empty,
+} from "./middleware/mod.ts";
+import { logger } from "./service/logger.ts";
 
 const app = new Application();
 
-// Logger
-app.use(async (ctx, next) => {
-  await next();
-  const rt = ctx.response.headers.get('X-Response-Time');
-  console.log(`${ctx.request.method} ${ctx.request.url} - ${rt}`);
-});
+app.use(midLogger);
+app.use(empty);
+app.use(timing);
 
-// Timing
-app.use(async (ctx, next) => {
-  const start = Date.now();
-  await next();
-  const ms = Date.now() - start;
-  ctx.response.headers.set('X-Response-Time', `${ms}ms`);
-});
+setRoutes(app);
 
-// Hello World!
-app.use((ctx) => {
-  ctx.response.body = 'Hello Deno!';
-});
+const port: number = Number(Deno.env.get("PORT")) || 80;
 
-const port:number = Number(Deno.env.get('PORT') || 80);
-
-app.listen({
-  port
-});
-console.log(`server listen at http://localhost:${port}/`);
+app.listen({ port });
+logger.info(`server listen at http://localhost:${port}/`);

@@ -1,6 +1,7 @@
-allow:
-  - net
-  - env
-
 scripts:
-  start: deno run entry.ts
+  lint: deno fmt --check .
+  start:
+    cmd: deno run entry.ts
+    allow:
+      - net
+      - env
