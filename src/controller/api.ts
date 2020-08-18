@@ -5,11 +5,10 @@ export const api = {
     ctx.response.body = {
       code: 0,
       msg: "ok",
-      data: "custom info",
+      data: "api info",
     };
   },
-
   error() {
-    throw new Error("custom error");
+    throw new Error("api error");
   },
 };

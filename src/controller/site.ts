@@ -7,4 +7,7 @@ export const site = {
   info(ctx: Context) {
     ctx.response.body = "page info";
   },
+  error() {
+    throw new Error("page error");
+  },
 };
