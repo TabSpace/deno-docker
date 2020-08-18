@@ -16,13 +16,58 @@ export class Logger {
       template: "{{YYYY}}.{{MM}}.{{DD}} {{hh}}:{{mm}}:{{ss}}.{{mss}}",
     });
     if (ctx) {
-      args.unshift(`[${ctx.request.url}]`);
-      args.unshift(`[${ctx.request.method}]`);
+      args.unshift(Colors.gray(`[${ctx.request.url}]`));
+      args.unshift(Colors.gray(`[${ctx.request.method}]`));
     }
-    level = level.toUpperCase();
-    args.unshift(`[${level}]`);
-    args.unshift(strTs);
+
+    level = level.toLowerCase();
+    let tagLevel = "[.]";
+    switch (level) {
+      case "log":
+        tagLevel = Colors.white("[.]");
+        break;
+      case "info":
+        tagLevel = Colors.blue("[*]");
+        break;
+      case "debug":
+        tagLevel = Colors.magenta("[#]");
+        break;
+      case "warn":
+        tagLevel = Colors.yellow("[!]");
+        break;
+      case "error":
+        tagLevel = Colors.red("[x]");
+        break;
+    }
+
+    args.unshift(tagLevel);
+    args.unshift(Colors.gray(strTs));
     console.log(...args);
+  }
+
+  _color(type: string, args: Array<any>) {
+    let colorFn: any = null;
+    switch (type) {
+      case "success":
+        colorFn = Colors.green;
+        break;
+      case "fail":
+        colorFn = Colors.red;
+        break;
+      case "tip":
+        colorFn = Colors.cyan;
+        break;
+      case "stress":
+        colorFn = Colors.magenta;
+        break;
+    }
+    args = args.map((item: any) => {
+      if (typeof item === "string" && typeof colorFn === "function") {
+        return colorFn(item);
+      }
+      return item;
+    });
+    this._output("info", args);
   }
 
   debug(...args: any) {
@@ -43,6 +88,22 @@ export class Logger {
 
   error(...args: any) {
     this._output("error", args);
+  }
+
+  success(...args: any) {
+    this._color("success", args);
+  }
+
+  fail(...args: any) {
+    this._color("fail", args);
+  }
+
+  tip(...args: any) {
+    this._color("tip", args);
+  }
+
+  stress(...args: any) {
+    this._color("stress", args);
   }
 }
 

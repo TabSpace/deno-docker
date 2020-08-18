@@ -6,6 +6,7 @@ export async function timing(ctx: Context, next: Function) {
   await next();
   const end = Date.now();
   const dur = end - start;
+  ctx.response.headers.set("X-Response-PowerBy", "deno");
   ctx.response.headers.set("X-Response-Time", `${end}`);
   ctx.response.headers.set("X-Response-Duration", `${dur}ms`);
   if (ctx.logger) {

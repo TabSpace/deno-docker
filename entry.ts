@@ -18,4 +18,4 @@ setRoutes(app);
 const port: number = Number(Deno.env.get("PORT")) || 80;
 
 app.listen({ port });
-logger.info(`server listen at http://localhost:${port}/`);
+logger.success(`Server listen at http://localhost:${port}/`);
