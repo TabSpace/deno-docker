@@ -4,16 +4,19 @@ import {
   logger as midLogger,
   timing,
   empty,
+  error,
+  statics,
 } from "./middleware/mod.ts";
 import { logger } from "./service/logger.ts";
 
 const app = new Application();
 
+app.use(error);
 app.use(midLogger);
-app.use(empty);
 app.use(timing);
-
+app.use(empty);
 setRoutes(app);
+app.use(statics);
 
 const port: number = Number(Deno.env.get("PORT")) || 80;
 

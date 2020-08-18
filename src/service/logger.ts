@@ -33,9 +33,21 @@ export class Logger {
         tagLevel = Colors.magenta("[#]");
         break;
       case "warn":
+        args = args.map((item: any) => {
+          if (typeof item === "string") {
+            return Colors.yellow(item);
+          }
+          return item;
+        });
         tagLevel = Colors.yellow("[!]");
         break;
       case "error":
+        args = args.map((item: any) => {
+          if (typeof item === "string") {
+            return Colors.red(item);
+          }
+          return item;
+        });
         tagLevel = Colors.red("[x]");
         break;
     }

@@ -1,28 +1,20 @@
 # deno-docker
 
-A docker file which contain the latest deno release.
+A docker file which contain deno demo.
 
-## Sample Usage
-
-### Build
-
-`docker image build -t deno .`
-
-### Use the interpreter
-
-`docker run -it deno`
-
-### Run the Deno demo
-
-Hello world
-
-`docker run deno run https://deno.land/std/examples/welcome.ts`
-
-OAK Demo
-
-- `docker run -p 3000:80 deno`
+## Development
 
 Local Demo
 
+Inastall [denon](https://github.com/denosaurs/denon)
+
 - `deno install --allow-read --allow-run --allow-write --allow-net -f -q --unstable https://deno.land/x/denon@2.3.2/denon.ts`
-- `denon run -A entry.ts`
+
+Start with dev mode
+
+- `denon dev`
+
+## Docker Demo
+
+- `docker image build -t deno .`
+- `docker run -p 3000:80 deno`

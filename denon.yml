@@ -1,7 +1,19 @@
 scripts:
   lint: deno fmt --check .
-  dev:
-    cmd: deno run src/entry.ts
+  build:
+    cmd: deno bundle src/entry.ts dist/entry.ts
+    watch: false
+  start:
+    cmd: deno run dist/entry.ts
     allow:
       - net
       - env
+      - read
+  dev:
+    cmd: deno run src/entry.ts
+    env:
+      PORT: "3000"
+    allow:
+      - net
+      - env
+      - read

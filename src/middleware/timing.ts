@@ -9,7 +9,5 @@ export async function timing(ctx: Context, next: Function) {
   ctx.response.headers.set("X-Response-PowerBy", "deno");
   ctx.response.headers.set("X-Response-Time", `${end}`);
   ctx.response.headers.set("X-Response-Duration", `${dur}ms`);
-  if (ctx.logger) {
-    ctx.logger.log(`Response time: ${dur}ms`);
-  }
+  ctx.logger?.log(`Response duration: ${dur}ms`);
 }
