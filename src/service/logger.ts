@@ -46,6 +46,14 @@ export class Logger {
           if (typeof item === "string") {
             return Colors.red(item);
           }
+          if (item instanceof Error) {
+            let str = "";
+            str = [
+              Colors.red(item.message),
+              Colors.red(item.stack || ""),
+            ].join("\n");
+            return str;
+          }
           return item;
         });
         tagLevel = Colors.red("[x]");

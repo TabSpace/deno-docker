@@ -39,15 +39,15 @@ export async function curl(ctx: Context, options: any) {
   try {
     rs = await fetch(conf.url, fetchOptions);
     if (conf.dataType === "json") {
-      data = rs.json() || null;
+      data = await rs.json() || null;
     } else {
-      data = rs.text() || null;
+      data = await rs.text() || null;
     }
   } catch (err) {
     error = err;
   }
 
-  if (!data) {
+  if (!data && !error) {
     error = new Error("response empty");
   }
 
@@ -58,9 +58,9 @@ export async function curl(ctx: Context, options: any) {
       `duration: ${Date.now() - startTime}ms`,
       `status: ${rs?.status}`,
       `message: ${error.message}`,
-      `${error.stack}`,
     ].join("\n");
     ctx.logger?.fail(errMsg);
+    throw error;
   } else {
     const strRs = JSON.stringify(data);
     let rsMsg = "";
