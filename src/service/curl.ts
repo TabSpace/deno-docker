@@ -1,4 +1,8 @@
 import { Context } from "../types.d.ts";
+import {
+  getTime36,
+  getRnd36,
+} from "../util/str.ts";
 
 const fname = "[curl]";
 
@@ -13,19 +17,20 @@ export async function curl(ctx: Context, options: any) {
     ...options,
   };
 
-  const reqId = "";
+  const reqId = `req_${getTime36()}_${getRnd36()}`;
   const startTime = Date.now();
 
   const fetchOptions = { ...conf };
-  Object.keys(extra).forEach(key => {
+  Object.keys(extra).forEach((key) => {
     delete fetchOptions[key];
   });
 
   const startMsg = [
     `${fname} start:`,
+    `id: ${reqId}`,
     `url: ${conf.url}`,
-    JSON.stringify(fetchOptions),
-  ].join('\n');
+    `options: ${JSON.stringify(fetchOptions)}`,
+  ].join("\n");
   ctx.logger?.info(startMsg);
 
   let error = null;
@@ -46,20 +51,19 @@ export async function curl(ctx: Context, options: any) {
     error = new Error("response empty");
   }
 
-  const wrapMsg = (msg: string) => {
-    const dur = `[duration: ${Date.now() - startTime}ms]`;
-    return `${fname}[${reqId}] ${msg} ${dur}`;
-  };
-
   if (error) {
     const errMsg = [
-      wrapMsg(`error: [${rs?.status}] ${error.message}`),
+      `${fname} error:`,
+      `id: ${reqId}`,
+      `duration: ${Date.now() - startTime}ms`,
+      `status: ${rs?.status}`,
+      `message: ${error.message}`,
       `${error.stack}`,
-    ].join('\n');
+    ].join("\n");
     ctx.logger?.fail(errMsg);
   } else {
     const strRs = JSON.stringify(data);
-    let rsMsg = '';
+    let rsMsg = "";
     if (strRs.length > 600) {
       const pre300 = strRs.slice(0, 300);
       const end300 = strRs.slice(strRs.length - 300);
@@ -68,9 +72,12 @@ export async function curl(ctx: Context, options: any) {
       rsMsg = strRs;
     }
     const endMsg = [
-      wrapMsg(`end: [${rs?.status}]`),
-      rsMsg,
-    ].join('\n');
+      `${fname} end:`,
+      `id: ${reqId}`,
+      `duration: ${Date.now() - startTime}ms`,
+      `status: ${rs?.status}`,
+      `result: ${rsMsg}`,
+    ].join("\n");
     ctx.logger?.success(endMsg);
   }
 

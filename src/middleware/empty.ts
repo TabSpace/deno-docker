@@ -15,6 +15,6 @@ export async function empty(ctx: Context, next: Function) {
       status: response.status,
       message: msg,
       stack: "",
-    });;
+    });
   }
 }

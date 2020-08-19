@@ -18,3 +18,31 @@ export function substitute(str: string, obj: any, reg?: RegExp) {
     return (obj[name] != null) ? obj[name] : "";
   });
 }
+
+/**
+ * 获取36进制随机字符串
+ * @method getRnd36
+ * @param {Float} [rnd] 随机数，不传则生成一个随机数
+ * @return {String} 转成为36进制的字符串
+ * @example
+ * getRnd36(0.5810766832590446); // 'kx2pozz9rgf'
+ */
+
+export function getRnd36(rnd?: number) {
+  rnd = rnd || Math.random();
+  return rnd.toString(36).replace(/^0./, "");
+}
+
+/**
+ * 获取36进制日期字符串
+ * @method getTime36
+ * @param {Date} [date] 符合规范的日期字符串或者数字，不传参数则使用当前客户端时间
+ * @return {String} 转成为36进制的字符串
+ * @example
+ * getTime36('2020'); // 'k4ujaio0'
+ */
+
+export function getTime36(date?: number | Date) {
+  date = date ? new Date(date) : new Date();
+  return date.getTime().toString(36);
+}
