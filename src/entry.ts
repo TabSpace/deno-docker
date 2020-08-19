@@ -2,6 +2,7 @@ import { Application } from "https://deno.land/x/oak@v6.0.1/mod.ts";
 import { setRoutes } from "./route/mod.ts";
 import {
   logger as midLogger,
+  curl,
   timing,
   empty,
   error,
@@ -13,6 +14,7 @@ const app = new Application();
 
 app.use(error);
 app.use(midLogger);
+app.use(curl);
 app.use(timing);
 app.use(empty);
 setRoutes(app);
