@@ -1,3 +1,4 @@
+import { renderFile } from "https://deno.land/x/dejs@0.8.0/mod.ts";
 import { Context } from "../types.d.ts";
 
 export async function empty(ctx: Context, next: Function) {
@@ -6,8 +7,14 @@ export async function empty(ctx: Context, next: Function) {
     response,
   } = ctx;
   if (!response.body) {
-    response.body = "Not Found!";
+    const msg = "Not found";
+    ctx.logger?.error("404", msg);
     response.status = 404;
-    ctx.logger?.error('404 Not found')
+    response.body = await renderFile(`${Deno.cwd()}/views/error.ejs`, {
+      title: "Empty",
+      status: response.status,
+      message: msg,
+      stack: "",
+    });;
   }
 }
