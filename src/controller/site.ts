@@ -2,8 +2,10 @@ import { renderFile } from "https://deno.land/x/dejs@0.8.0/mod.ts";
 import { Context } from "../types.d.ts";
 
 export const site = {
-  home(ctx: Context) {
-    ctx.response.body = "page home";
+  async home(ctx: Context) {
+    ctx.response.body = await renderFile(`${Deno.cwd()}/views/home.ejs`, {
+      title: "home",
+    });
   },
   async info(ctx: Context) {
     let mdContent = "";

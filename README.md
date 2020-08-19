@@ -1,6 +1,6 @@
 # deno-docker
 
-A docker file which contain deno demo.
+A deno docker demo.
 
 ## Prepare
 
@@ -12,8 +12,8 @@ Inastall [denon](https://github.com/denosaurs/denon)
 
 - `denon dev`
 
-## Docker Demo
+## Distribute with docker
 
 - `denon build`
-- `docker image build -t deno .`
-- `docker run -p 3000:80 deno`
+- `docker image build -t tab/deno .`
+- `docker run -p 3000:80 tab/deno`
